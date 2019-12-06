@@ -1,36 +1,5 @@
 #!/usr/local/aws/bin/python
-"""
-    Scalp! Apache log based attack analyzer
-    by Romain Gaucher <r@rgaucher.info> - http://rgaucher.info
-                                          http://code.google.com/p/apache-scalp
 
-
-    Copyright (c) 2008 Romain Gaucher <r@rgaucher.info>
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    EXTERNAL DEVELOPER NOTES:
-        10052008: Don C. Weber
-            Fixed XML header by putting comment after XML version line.
-                - This was necessary so that Firefox recognized the file as XML and
-                displayed it properly.  Proper display allows for sections to be
-                collapsed for easy viewing.
-        10062008: Don C. Weber
-            Added Regexp to the XML output.  Also added this to the DTD
-        12312008: Don C. Weber
-            Added IP and Subnet exclusion capability to cmd line input and scalper function
-
-"""
 from __future__ import with_statement
 import time, base64
 import os,sys,random
@@ -48,13 +17,13 @@ except ImportError:
         except ImportError:
             print("Cannot find the ElementTree in your python packages")
 
-__application__ = "scalp"
+__application__ = "vampire"
 __version__     = "0.5"
 __release__     = __application__ + '/' + __version__
-__author__      = "Romain Gaucher"
-__credits__      = ["Romain Gaucher", "Don C. Weber", "nanopony"]
+__author__      = "Marc Williams"
+__credits__      = ["Marc Williams", "netsequent"]
 
-PHPIDC_DEFAULT_XML_URL = "http://dev.itratos.de/projects/php-ids/repository/raw/trunk/lib/IDS/default_filter.xml" # they have expired https cert atm :c
+PHPIDC_DEFAULT_XML_URL = "https://www.netsequent.com/default_filter.xml" # they have expired https cert atm :c
 
 names = {
     'xss'  : 'Cross-Site Scripting',
@@ -79,14 +48,14 @@ class BreakLoop( Exception ):
 
 txt_header = """
 #
-# File created by Scalp! by Romain Gaucher - http://code.google.com/p/apache-scalp
-# Apache log attack analysis tool based on PHP-IDS filters
+# File created by Vampire! by Marc Williams - http://code.google.com/p/apache-scalp
+# AWS ELB log attack analysis tool based on PHP-IDS filters
 #
 """
 
 xml_header = """<?xml version="1.0" encoding="utf-8"?>
 <!--
- File created by Scalp! by Romain Gaucher - http://code.google.com/p/apache-scalp
+ File created by Vampire! by Marc Williams - https://github.com/25814916m/apache-scalp
  Apache log attack analysis tool based on PHP-IDS filters
 -->
 """
